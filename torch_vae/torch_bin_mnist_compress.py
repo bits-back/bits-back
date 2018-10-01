@@ -37,7 +37,7 @@ vae_pop = util.vae_pop(latent_shape, gen_net, rec_net, obs_pop,
                        prior_precision, q_precision)
 
 # load some mnist images
-mnist = datasets.MNIST('../data', train=False, download=True,
+mnist = datasets.MNIST('data/mnist', train=False, download=True,
                        transform=transforms.Compose(
                            [transforms.ToTensor()]))
 images = mnist.test_data[:num_images]

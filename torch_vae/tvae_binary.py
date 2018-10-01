@@ -122,16 +122,16 @@ if __name__ == '__main__':
     else:
         binariser = Round()
     train_loader = torch.utils.data.DataLoader(
-        datasets.MNIST('../data', train=True, download=True,
+        datasets.MNIST('data/mnist', train=True, download=True,
                        transform=transforms.Compose([transforms.ToTensor(), binariser])),
         batch_size=batch_size, shuffle=True)
 
     test_loader = torch.utils.data.DataLoader(
-        datasets.MNIST('../data', train=False, download=True,
+        datasets.MNIST('data/mnist', train=False, download=True,
                        transform=transforms.Compose([transforms.ToTensor(), binariser])),
         batch_size=batch_size, shuffle=True)
 
-    recon_dataset = datasets.MNIST('../data', train=False, download=True,
+    recon_dataset = datasets.MNIST('data/mnist', train=False, download=True,
                                    transform=transforms.Compose([transforms.ToTensor(), binariser])).test_data[:32]\
                             .float()/255.
 

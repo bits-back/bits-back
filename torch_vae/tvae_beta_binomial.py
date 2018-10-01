@@ -145,16 +145,16 @@ if __name__ == '__main__':
     optimizer = optim.Adam(model.parameters(), lr=5e-4)
 
     train_loader = torch.utils.data.DataLoader(
-        datasets.MNIST('../data', train=True, download=True,
+        datasets.MNIST('data/mnist', train=True, download=True,
                        transform=transforms.Compose([transforms.ToTensor(), ToInt()])),
         batch_size=batch_size, shuffle=True, **kwargs)
 
     test_loader = torch.utils.data.DataLoader(
-        datasets.MNIST('../data', train=False, download=True,
+        datasets.MNIST('data/mnist', train=False, download=True,
                        transform=transforms.Compose([transforms.ToTensor(), ToInt()])),
         batch_size=batch_size, shuffle=True, **kwargs)
 
-    recon_dataset = datasets.MNIST('../data', train=False, download=True,
+    recon_dataset = datasets.MNIST('data/mnist', train=False, download=True,
                                    transform=transforms.Compose([transforms.ToTensor(),
                                                                  ToInt()])).test_data[:32]
 
