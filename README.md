@@ -1,3 +1,4 @@
+Code for the paper ['Practical Lossless Compression with Latent Variables using Bits Back Coding'](https://openreview.net/forum?id=ryE98iR5tm), currently under review for ICLR 2019.
 ### Overview of the code
 The low level rANS encoding and decoding functions are in [rans.py](rans.py). Higher level functions for encoding and decoding according to various distributions, including using [BB-ANS coding](util.py#L152) and more specialised [BB-ANS VAE coding](util.py#L168), are in [util.py](util.py).
 
