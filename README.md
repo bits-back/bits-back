@@ -1,4 +1,6 @@
-Code for the paper ['Practical Lossless Compression with Latent Variables using Bits Back Coding'](https://openreview.net/forum?id=ryE98iR5tm), currently under review for ICLR 2019.
+Code for the paper [Practical Lossless Compression with Latent Variables using Bits Back Coding](https://openreview.net/forum?id=ryE98iR5tm), appearing at ICLR 2019.
+
+All of the code was written by [Jamie Townsend](https://github.com/j-towns/) and [Tom Bird](https://github.com/tom-bird).
 ### Overview of the code
 The low level rANS encoding and decoding functions are in [rans.py](rans.py). Higher level functions for encoding and decoding according to various distributions, including using [BB-ANS coding](util.py#L152) and more specialised [BB-ANS VAE coding](util.py#L168), are in [util.py](util.py).
 
@@ -18,3 +20,6 @@ VAE Compression: Pytorch
 Compression benchmarks: [Pillow](https://pillow.readthedocs.io/en/stable/)
 
 Please notify us if we've missed something.
+
+### Acknowledgements
+Thanks to [Jarek Duda](http://th.if.uj.edu.pl/~dudaj/) for inventing ANS and [fighting to keep it patent free](https://arstechnica.com/tech-policy/2018/06/inventor-says-google-is-patenting-work-he-put-in-the-public-domain/). Thanks to [Fabien Giesen](https://fgiesen.wordpress.com/) for the [ryg_rans](https://github.com/rygorous/ryg_rans) ANS implementation, upon which [rans.py](rans.py) is closely based.
