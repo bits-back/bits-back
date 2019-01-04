@@ -22,4 +22,4 @@ Compression benchmarks: [Pillow](https://pillow.readthedocs.io/en/stable/)
 Please notify us if we've missed something.
 
 ### Acknowledgements
-Thanks to [Jarek Duda](http://th.if.uj.edu.pl/~dudaj/) for inventing ANS and [fighting to keep it patent free](https://arstechnica.com/tech-policy/2018/06/inventor-says-google-is-patenting-work-he-put-in-the-public-domain/). Thanks to [Fabien Giesen](https://fgiesen.wordpress.com/) for the [ryg_rans](https://github.com/rygorous/ryg_rans) ANS implementation, upon which [rans.py](rans.py) is closely based.
+Thanks to [Jarek Duda](http://th.if.uj.edu.pl/~dudaj/) for inventing ANS and [fighting to keep it patent free](https://arstechnica.com/tech-policy/2018/06/inventor-says-google-is-patenting-work-he-put-in-the-public-domain/). Thanks to [Fabian Giesen](https://fgiesen.wordpress.com/) for the [ryg_rans](https://github.com/rygorous/ryg_rans) ANS implementation, upon which [rans.py](rans.py) is closely based.
