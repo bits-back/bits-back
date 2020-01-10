@@ -18,7 +18,7 @@ import numpy as np
 from functools import reduce
 
 
-head_precision = 63
+head_precision = 64
 tail_precision = 32
 tail_mask = (1 << tail_precision) - 1
 head_min  = 1 << head_precision - tail_precision
@@ -31,6 +31,8 @@ def append(x, start, freq, precision):
     Encodes a symbol with range [`start`, `start + freq`).  All frequencies are
     assumed to sum to `1 << precision`, and compressed bits get written to x.
     """
+    # Prevent Numpy scalars leaking in
+    start, freq = int(start), int(freq)
     head, tail = x
     if head >= freq << head_precision - precision:
         # Need to push data down into tail
@@ -47,6 +49,8 @@ def pop(x, statfun, precision):
     head, tail = x
     cf = head & ((1 << precision) - 1)
     symb, (start, freq) = statfun(cf)
+    # Prevent Numpy scalars leaking in
+    start, freq = int(start), int(freq)
     head = freq * (head >> precision) + cf - start
     if head < head_min:
         # Need to pull data up from tail
