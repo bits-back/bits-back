@@ -40,9 +40,9 @@ def test_bvae_enc_dec():
         prior_precision, q_precision)
 
     # randomly generate some 'other' bits
-    other_bits = rng.randint(1 << 32, size=10, dtype=np.uint32)
+    other_bits = rng.randint(1 << 16, size=20, dtype=np.uint32)
     state = rans.x_init
-    state = util.uniforms_append(32)(state, other_bits)
+    state = util.uniforms_append(16)(state, other_bits)
 
     # ---------------------------- ENCODE ------------------------------------
     state = vae_append(state, image)
@@ -58,6 +58,6 @@ def test_bvae_enc_dec():
     assert all(image == image_)
 
     #  recover the other bits from q(y|x_0)
-    state, recovered_bits = util.uniforms_pop(32, 10)(state)
+    state, recovered_bits = util.uniforms_pop(16, 20)(state)
     assert all(other_bits == recovered_bits)
     assert state == rans.x_init

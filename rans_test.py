@@ -23,10 +23,11 @@ def test_rans():
     # Decode
     x = rans.unflatten(coded_arr)
     for start, freq in reversed(list(zip(starts, freqs))):
-        cf, pop = rans.pop(x, scale_bits)
-        assert start <= cf < start + freq
-        x = pop(start, freq)
-    assert x == (rans.rans_l, ())
+        def statfun(cf):
+            assert start <= cf < start + freq
+            return None, (start, freq)
+        x, symbol = rans.pop(x, statfun, scale_bits)
+    assert x == (rans.head_min, ())
 
 
 def test_flatten_unflatten():

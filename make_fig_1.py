@@ -13,7 +13,7 @@ rng = np.random.RandomState(0)
 
 fig, ax = plt.subplots()
 
-N = 30
+N = 20
 spacing = 20
 h = 28
 
@@ -39,7 +39,7 @@ bb_ans_compressed = bytes_to_img(rans.flatten(state).tobytes())
 
 raw_data = np.concatenate(~raw_data, axis=1)
 
-labels = ["BB-ANS",          "bz2",          "PNG",          "Binarized\nMNIST"]
+labels = ["BB-ANS",          "bz2",          "PNG",          "MNIST"]
 data   = [bb_ans_compressed, bz2_compressed, png_compressed, raw_data          ]
 
 yticks = []
@@ -58,4 +58,4 @@ ax.set_yticklabels(labels)
 ax.set_ylim(0, 28 * (spacing + (i + 1) * (h + spacing)))
 ax.set_xlabel('Size (bits)')
 ax.set_aspect('equal')
-plt.savefig('compression_plot.png', dpi=200, bbox_inches='tight')
+plt.savefig('compression_plot.png', dpi=800, bbox_inches='tight')

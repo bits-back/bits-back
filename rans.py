@@ -18,27 +18,41 @@ import numpy as np
 from functools import reduce
 
 
-rans_l = 1 << 31  # the lower bound of the normalisation interval
-tail_bits = (1 << 32) - 1
+head_precision = 63
+tail_precision = 32
+tail_mask = (1 << tail_precision) - 1
+head_min  = 1 << head_precision - tail_precision
 
-x_init = (rans_l, ())
+#        head    , tail
+x_init = head_min, ()
 
 def append(x, start, freq, precision):
-    """Encodes a symbol with range [start, start + freq).  All frequencies are
-    assumed to sum to "1 << precision", and the resulting bits get written to
-    x."""
-    if x[0] >= ((rans_l >> precision) << 32) * freq:
-        x = (x[0] >> 32, (x[0] & tail_bits, x[1]))
-    return ((x[0] // freq) << precision) + (x[0] % freq) + start, x[1]
+    """
+    Encodes a symbol with range [`start`, `start + freq`).  All frequencies are
+    assumed to sum to `1 << precision`, and compressed bits get written to x.
+    """
+    head, tail = x
+    if head >= freq << head_precision - precision:
+        # Need to push data down into tail
+        head, tail = head >> tail_precision, (head & tail_mask, tail)
+    return (head // freq << precision) + head % freq + start, tail
 
-def pop(x_, precision):
-    """Advances in the bit stream by "popping" a single symbol with range start
-    "start" and frequency "freq"."""
-    cf = x_[0] & ((1 << precision) - 1)
-    def pop(start, freq):
-        x = freq * (x_[0] >> precision) + cf - start, x_[1]
-        return ((x[0] << 32) | x[1][0], x[1][1]) if x[0] < rans_l else x
-    return cf, pop
+def pop(x, statfun, precision):
+    """
+    Pops a symbol from x. The signiature of statfun should be
+        statfun: cf |-> symbol, (start, freq)
+    where `cf` is in the interval [`start`, `freq`) and `symbol` is the symbol
+    corresponding to that interval.
+    """
+    head, tail = x
+    cf = head & ((1 << precision) - 1)
+    symb, (start, freq) = statfun(cf)
+    head = freq * (head >> precision) + cf - start
+    if head < head_min:
+        # Need to pull data up from tail
+        head_new, tail = tail
+        head = (head << tail_precision) + head_new
+    return (head, tail), symb
 
 def append_symbol(statfun, precision):
     def append_(x, symbol):
@@ -48,9 +62,7 @@ def append_symbol(statfun, precision):
 
 def pop_symbol(statfun, precision):
     def pop_(x):
-        cf, pop_fun = pop(x, precision)
-        symbol, (start, freq) = statfun(cf)
-        return pop_fun(start, freq), symbol
+        return pop(x, statfun, precision)
     return pop_
 
 def flatten(x):
