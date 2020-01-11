@@ -32,7 +32,7 @@ def append(x, start, freq, precision):
     assumed to sum to `1 << precision`, and compressed bits get written to x.
     """
     # Prevent Numpy scalars leaking in
-    start, freq = int(start), int(freq)
+    start, freq, precision = map(int, [start, freq, precision])
     head, tail = x
     if head >= freq << head_precision - precision:
         # Need to push data down into tail
@@ -46,6 +46,8 @@ def pop(x, statfun, precision):
     where `cf` is in the interval [`start`, `freq`) and `symbol` is the symbol
     corresponding to that interval.
     """
+    # Prevent Numpy scalars leaking in
+    precision = int(precision)
     head, tail = x
     cf = head & ((1 << precision) - 1)
     symb, (start, freq) = statfun(cf)
