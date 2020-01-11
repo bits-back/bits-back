@@ -49,7 +49,7 @@ tail_precision = 32
 tail_mask = (1 << tail_precision) - 1
 head_min  = 1 << head_precision - tail_precision
 
-#        head    , tail
+#          head    , tail
 msg_init = head_min, ()
 
 def append(msg, start, prob, precision):
