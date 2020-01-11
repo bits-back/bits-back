@@ -17,8 +17,8 @@ Both the `append` method and the `pop` method assume access to a probability
 distribution over symbols. We use the name `symb` for a symbol. To describe the
 probability distribution we model the real interval [0, 1] with the range of
 integers {0, 1, 2, ..., 2 ** precision}. Each symbol is represented by a
-sub-interval within that range. For a set of symbols {a, b, c, d} this looks
-like this:
+sub-interval within that range. This can be visualized for a probability
+distribution over the set of symbols {a, b, c, d}:
 
     0                                                             1
     |          |----- P(symb) ------|                             |
