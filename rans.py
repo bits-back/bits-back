@@ -8,7 +8,7 @@ is an int in the range `[0, 2 ** head_precision)` and `tail` is an immutable
 stack, implemented using a cons list, containing ints in the range
 `[0, 2 ** tail_precision)`. The precisions must satisfy
 
-  head_precision > tail_precision.
+  tail_precision < head_precision <= 2 * tail_precision.
 
 For convenient compatibility with Numpy dtypes we use the settings
 head_precision = 64 and tail_precision = 32.
