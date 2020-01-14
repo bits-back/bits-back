@@ -29,8 +29,9 @@ distribution over the set of symbols {a, b, c, d}:
     |          |------ prob --------|                             |
     0        start                                            2 ** precision
 
-As shown in the above diagram, the number `prob` represents the width of the
-interval, corresponding to `symb`, so that
+Each sub-interval can be represented by a pair of non-negative integers:
+`start` and `prob`. As shown in the above diagram, the number `prob` represents
+the width of the interval, corresponding to `symb`, so that
 
   P(symb) = prob / 2 ** precision
 
