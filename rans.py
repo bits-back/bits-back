@@ -69,8 +69,8 @@ def pop(msg, statfun, precision):
     """
     Pops a symbol from msg. The signiature of statfun should be
         statfun: cf |-> symb, (start, prob)
-    where `cf` is in the interval `[start, prob)` and `symb` is the symbol
-    corresponding to that interval.
+    where `cf` is in the interval `[start, start + prob)` and `symb` is the
+    symbol corresponding to that interval.
     """
     # Prevent Numpy scalars leaking in
     precision = int(precision)
