@@ -46,7 +46,7 @@ def test_binomial_cdf():
                       data_precision, precision)
 
 def check_append_pop(data, append, pop):
-    state = rans.x_init
+    state = rans.msg_init
 
     # Encode
     state = append(state, data)
@@ -56,7 +56,7 @@ def check_append_pop(data, append, pop):
     # Decode
     state, data_reconstructed = pop(state)
     np_testing.assert_allclose(data, data_reconstructed)
-    assert state == rans.x_init
+    assert state == rans.msg_init
 
 def test_uniform_append_pop():
     n_data = 100
