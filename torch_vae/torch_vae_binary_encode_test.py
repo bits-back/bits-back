@@ -41,7 +41,7 @@ def test_bvae_enc_dec():
 
     # randomly generate some 'other' bits
     other_bits = rng.randint(1 << 16, size=20, dtype=np.uint32)
-    state = rans.x_init
+    state = rans.msg_init
     state = util.uniforms_append(16)(state, other_bits)
 
     # ---------------------------- ENCODE ------------------------------------
@@ -60,4 +60,4 @@ def test_bvae_enc_dec():
     #  recover the other bits from q(y|x_0)
     state, recovered_bits = util.uniforms_pop(16, 20)(state)
     assert all(other_bits == recovered_bits)
-    assert state == rans.x_init
+    assert state == rans.msg_init

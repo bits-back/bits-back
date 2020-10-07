@@ -6,7 +6,7 @@ rng = np.random.RandomState(0)
 
 
 def test_rans():
-    x = rans.x_init
+    x = rans.msg_init
     scale_bits = 8
     starts = rng.randint(0, 256, size=1000)
     freqs = rng.randint(1, 256, size=1000) % (256 - starts)
@@ -31,7 +31,7 @@ def test_rans():
 
 
 def test_flatten_unflatten():
-    state = rans.x_init
+    state = rans.msg_init
     some_bits = rng.randint(1 << 8, size=5)
     for b in some_bits:
         state = rans.append(state, b, 1, 8)
