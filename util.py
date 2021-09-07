@@ -99,7 +99,7 @@ def std_gaussian_buckets(precision):
         return std_gaussian_bucket_cache[precision]
     else:
         buckets = np.float32(
-            norm.ppf(np.arange(1 << precision + 1) / (1 << precision)))
+            norm.ppf(np.arange((1 << precision) + 1) / (1 << precision)))
         std_gaussian_bucket_cache[precision] = buckets
         return buckets
 
