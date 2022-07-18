@@ -100,7 +100,10 @@ def pop_symbol(statfun, precision):
 
 def flatten(msg):
     """Flatten a rANS message into a 1d numpy array."""
-    out, msg = [msg[0] >> 32, msg[0]], msg[1]
+    # We perform the bit-mask below to avoid an overflow error on systems which
+    # use 32-bit Python builtin ints, see
+    # https://github.com/numpy/numpy/issues/6289.
+    out, msg = [msg[0] >> 32, msg[0] & tail_mask], msg[1]
     while msg:
         x_head, msg = msg
         out.append(x_head)
